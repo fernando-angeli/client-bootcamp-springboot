@@ -5,6 +5,7 @@ import com.fernandoangeli.client.entities.Client;
 import com.fernandoangeli.client.repositories.ClientRepository;
 import com.fernandoangeli.client.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -49,6 +50,14 @@ public class ClientService {
         }
     }
 
+    public void delete(Long id) {
+        try{
+            repository.deleteById(id);
+        } catch (EmptyResultDataAccessException e){
+            throw new ResourceNotFoundException("Id "+ id + " não encontrado");
+        }
+    }
+
     private void copyDtoToEntity(ClientDTO dto, Client entity) {
         entity.setName(dto.getName());
         entity.setCpf(dto.getCpf());
@@ -56,4 +65,5 @@ public class ClientService {
         entity.setBirthDate(dto.getBirthDate());
         entity.setChildren(dto.getChildren());
     }
+
 }

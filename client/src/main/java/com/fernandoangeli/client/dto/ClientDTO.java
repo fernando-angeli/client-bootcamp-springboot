@@ -2,10 +2,12 @@ package com.fernandoangeli.client.dto;
 
 import com.fernandoangeli.client.entities.Client;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.Instant;
 
 @Data
+@NoArgsConstructor
 public class ClientDTO {
 
     private Long id;
